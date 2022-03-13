@@ -33,6 +33,6 @@ async def root():
 
 
 @app.get("/start/")
-async def start():
-    await scraper()
+async def start(background_tasks: BackgroundTasks):
+    background_tasks.add_task(scraper)
     return {"message": "Scraping started. Please open spreadsheet to view output."}
