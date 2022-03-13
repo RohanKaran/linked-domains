@@ -66,6 +66,7 @@ class Scraper(webdriver.Chrome):
         print("logged in")
 
     def scrape(self, target, last_domain, last_date):
+        print(self.get_window_size())
         dr = 1
         all_links = []
         self.get(f'https://app.ahrefs.com/site-explorer/others/v2/linked-domains/subdomains/live/all/all/1'
