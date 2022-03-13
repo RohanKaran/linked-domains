@@ -26,11 +26,26 @@ month_map = {
 
 chrome_options = Options()
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument("--disable-notifications")
+args = [
+    "--disable-background-timer-throttling",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-breakpad",
+    "--disable-component-extensions-with-background-pages",
+    "--disable-dev-shm-usage",
+    "--disable-extensions",
+    "--disable-features=TranslateUI,BlinkGenPropertyTrees",
+    "--disable-ipc-flooding-protection",
+    "--disable-renderer-backgrounding",
+    "--enable-features=NetworkService,NetworkServiceInProcess",
+    "--force-color-profile=srgb",
+    "--hide-scrollbars",
+    "--metrics-recording-only",
+    "--mute-audio",
+    "--headless",
+    "--no-sandbox"
+  ]
+for i in args:
+    chrome_options.add_argument(i)
 
 
 def formatDate(date):
