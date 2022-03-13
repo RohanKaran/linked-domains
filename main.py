@@ -6,7 +6,7 @@ from fastapi import FastAPI, BackgroundTasks, HTTPException
 app = FastAPI()
 
 
-async def scraper(error=""):
+def scraper(error=""):
     try:
         sheet1 = read()
         with Scraper(teardown=True) as bot:
@@ -40,4 +40,4 @@ async def start(background_tasks: BackgroundTasks):
 
 
 if __name__ == "__main__":
-    await scraper()
+    scraper()
