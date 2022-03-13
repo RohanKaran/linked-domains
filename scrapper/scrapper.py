@@ -31,7 +31,6 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument("--disable-notifications")
-chrome_options.add_argument('window-size=200,200')
 
 
 def formatDate(date):
@@ -50,6 +49,7 @@ class Scraper(webdriver.Chrome):
         self.driver_path = driver_path
         self.teardown = teardown
         super(Scraper, self).__init__()
+        self.set_window_size(320, 200)
         self.implicitly_wait(2500)
 
     def login(self, email, password):
