@@ -96,7 +96,7 @@ class Scraper(webdriver.Chrome):
 
         print("refreshed", self.current_url)
 
-        WebDriverWait(self, 300).until(ec.presence_of_element_located((By.ID, 'result_info')))
+        WebDriverWait(self, 3000).until(ec.presence_of_element_located((By.ID, 'result_info')))
         total_number = self.find_element(
             By.ID, 'result_info')
         print(total_number.text)
