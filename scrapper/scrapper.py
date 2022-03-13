@@ -65,7 +65,7 @@ class Scraper(webdriver.Chrome):
     def scrape(self, target, last_domain, last_date):
         dr = 1
         all_links = []
-        print(self.current_url)
+        print(self.page_source)
         self.get(f'https://app.ahrefs.com/site-explorer/others/v2/linked-domains/subdomains/live/all/all/1'
                  f'/first_seen_desc?target={target}')
         self.implicitly_wait(10)
