@@ -81,8 +81,8 @@ class Scraper(webdriver.Chrome):
 
         print(self.current_url)
         print(str(self.page_source))
-        total_number = self.find_element(
-            By.ID, 'result_info').find_element(By.TAG_NAME, "var").text
+        total_number = WebDriverWait(self, 30).until(self.find_element(
+            By.ID, 'result_info').find_element(By.TAG_NAME, "var").text)
         total_number = int(re.sub(r"\D", "", total_number))
         print(total_number)
         updated_link = self.find_elements(
