@@ -59,7 +59,7 @@ class Scraper(webdriver.Chrome):
         print("logged in")
 
     def scrape(self, target, last_domain, last_date):
-
+        self.login('rahulthepcl@gmail.com', 'Adsense007##')
         dr = 1
         all_links = []
 
