@@ -49,7 +49,7 @@ class Scraper(webdriver.Chrome):
         self.driver_path = driver_path
         self.teardown = teardown
         super(Scraper, self).__init__()
-        self.set_window_size(50, 50)
+        self.set_window_size(5, 5)
         self.implicitly_wait(25)
 
     def login(self, email, password):

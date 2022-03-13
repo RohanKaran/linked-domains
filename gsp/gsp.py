@@ -31,7 +31,7 @@ def write(arr: List[List[str]]):
     try:
         result = sheet.values()
         result.append(spreadsheetId="1Qer5TW8Ccr0niuEi9KBE66SviPZBKtzm3rJBxQZYDOg",
-                      range='Sheet2!A2', valueInputOption='RAW', body={"values": arr}).execute()
+                      range='Sheet2!A2:A', valueInputOption='RAW', body={"values": arr}).execute()
 
     except HttpError as err:
         print(err)
@@ -41,7 +41,7 @@ def writeLog(arr: List[List[str]]):
     try:
         result = sheet.values()
         result.append(spreadsheetId="1Qer5TW8Ccr0niuEi9KBE66SviPZBKtzm3rJBxQZYDOg",
-                      range='Sheet2!C2', valueInputOption='RAW', body={"values": arr}).execute()
+                      range='Sheet2!C2:C', valueInputOption='RAW', body={"values": arr}).execute()
 
     except HttpError as err:
         print(err)
