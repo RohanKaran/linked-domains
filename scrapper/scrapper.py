@@ -79,12 +79,12 @@ class Scraper(webdriver.Chrome):
             self.login('rahulthepcl@gmail.com', 'Adsense007##')
             self.scrape(target, last_date, last_domain)
 
-        print(self.current_url)
-        print(str(self.page_source))
+        print("refreshed", self.current_url)
 
-        total_number = WebDriverWait(self, 300).until(self.find_element(
-            By.ID, 'result_info'))
-        print(total_number)
+        WebDriverWait(self, 300).until(ec.presence_of_element_located((By.ID, 'result_info')))
+        total_number = self.find_element(
+            By.ID, 'result_info')
+        print(total_number.text)
         total_number = total_number.find_element(By.TAG_NAME, "var").text
         total_number = int(re.sub(r"\D", "", total_number))
         print(total_number)
