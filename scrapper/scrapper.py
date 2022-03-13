@@ -51,6 +51,7 @@ class Scraper(webdriver.Chrome):
 
     def login(self, email, password):
         self.get("https://app.ahrefs.com/user/login")
+        self.implicitly_wait(25)
         self.find_element(
             By.XPATH, "//input[@name='email']").send_keys(email)
         self.find_element(
