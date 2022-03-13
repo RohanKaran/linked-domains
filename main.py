@@ -6,7 +6,7 @@ from fastapi import FastAPI, BackgroundTasks, HTTPException
 app = FastAPI()
 
 
-async def scraper():
+async def scraper(error=""):
     try:
         sheet1 = read()
         with Scraper(teardown=True) as bot:
@@ -18,13 +18,14 @@ async def scraper():
                     update([updated_date_link], i + 2)
                 except Exception as e:
                     print(e)
+                    error += str(e)
                     continue
         writeLog([[str(datetime.now()) + " Status: Success"]])
         addUnique()
 
     except HTTPException as e:
         print(e)
-        writeLog([[str(datetime.now()) + " Status:" + str(e)]])
+        writeLog([[str(datetime.now()) + " Status: " + error + str(e)]])
 
 
 @app.get("/")
@@ -39,4 +40,4 @@ async def start(background_tasks: BackgroundTasks):
 
 
 if __name__ == "__main__":
-    scraper()
+    await scraper()
