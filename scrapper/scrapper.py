@@ -68,7 +68,7 @@ class Scraper(webdriver.Chrome):
         print(self.page_source)
         self.get(f'https://app.ahrefs.com/site-explorer/others/v2/linked-domains/subdomains/live/all/all/1'
                  f'/first_seen_desc?target={target}')
-        self.implicitly_wait(10)
+        time.sleep(5)
         print(self.page_source)
         # Check for if it gets logged out
         if self.current_url == "https://app.ahrefs.com/sessions-exceeded":
