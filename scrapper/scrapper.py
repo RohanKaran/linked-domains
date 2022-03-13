@@ -48,6 +48,7 @@ class Scraper(webdriver.Chrome):
         self.teardown = teardown
         super(Scraper, self).__init__()
         self.implicitly_wait(25)
+        self.maximize_window()
 
     def login(self, email, password):
         self.get("https://app.ahrefs.com/user/login")
@@ -65,11 +66,11 @@ class Scraper(webdriver.Chrome):
     def scrape(self, target, last_domain, last_date):
         dr = 1
         all_links = []
-        print(self.page_source)
         self.get(f'https://app.ahrefs.com/site-explorer/others/v2/linked-domains/subdomains/live/all/all/1'
                  f'/first_seen_desc?target={target}')
         time.sleep(5)
         print(self.current_url)
+        self.get_window_size()
         self.refresh()
         # Check for if it gets logged out
         if self.current_url == "https://app.ahrefs.com/sessions-exceeded":
