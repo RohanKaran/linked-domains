@@ -70,7 +70,7 @@ class Scraper(webdriver.Chrome):
                  f'/first_seen_desc?target={target}')
         time.sleep(5)
         print(self.current_url)
-        self.get_window_size()
+        print(self.get_window_size())
         self.refresh()
         # Check for if it gets logged out
         if self.current_url == "https://app.ahrefs.com/sessions-exceeded":
