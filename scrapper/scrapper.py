@@ -4,14 +4,12 @@ from gsp.gsp import write
 import datetime
 import re
 from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
-# from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 
 chrome_options = webdriver.ChromeOptions()
-# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-sh-usage")
@@ -39,12 +37,8 @@ def formatDate(date):
     return datetime.date(year, month, day)
 
 
-# driver = webdriver.Chrome(service=Service(
-#     ChromeDriverManager().install()), options=chrome_options)
-
-
 class Scraper(webdriver.Chrome):
-    def __init__(self, driver_path=webdriver.Chrome(executable_path="chromedriver.exe",
+    def __init__(self, driver_path=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),
                                                     options=chrome_options), teardown=False):
         self.driver_path = driver_path
         self.teardown = teardown
