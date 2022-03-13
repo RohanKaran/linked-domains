@@ -48,7 +48,6 @@ class Scraper(webdriver.Chrome):
         self.teardown = teardown
         super(Scraper, self).__init__()
         self.implicitly_wait(25)
-        self.maximize_window()
 
     def login(self, email, password):
         self.get("https://app.ahrefs.com/user/login")
