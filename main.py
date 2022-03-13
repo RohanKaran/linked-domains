@@ -15,7 +15,7 @@ async def scraper():
                 try:
                     updated_date_link = bot.scrape(web[0], web[1], web[2])
                     print(updated_date_link)
-                    update([updated_date_link], i+2)
+                    update([updated_date_link], i + 2)
                 except Exception as e:
                     print(e)
                     continue
@@ -36,3 +36,7 @@ async def root():
 async def start(background_tasks: BackgroundTasks):
     background_tasks.add_task(scraper)
     return {"message": "Scraping started. Please open spreadsheet to view output."}
+
+
+if __name__ == "__main__":
+    scraper()
