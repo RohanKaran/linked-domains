@@ -47,7 +47,6 @@ class Scraper(webdriver.Chrome):
         self.maximize_window()
 
     def login(self, email, password):
-        # try:
         self.get("https://app.ahrefs.com/user/login")
         self.find_element(
             By.XPATH, "//input[@name='email']").send_keys(email)
@@ -58,9 +57,6 @@ class Scraper(webdriver.Chrome):
         WebDriverWait(self, 30).until(
             ec.url_matches('https://app.ahrefs.com/dashboard'))
         print("logged in")
-        # except:
-        #     print('login failed!!, Quiting')
-        # driver.quit()
 
     def scrape(self, target, last_domain, last_date):
 
@@ -69,20 +65,19 @@ class Scraper(webdriver.Chrome):
 
         self.get(f'https://app.ahrefs.com/site-explorer/others/v2/linked-domains/subdomains/live/all/all/1'
                  f'/first_seen_desc?target={target}')
-
+        self.implicitly_wait(10)
         # Check for if it gets logged out
         if self.current_url == "https://app.ahrefs.com/sessions-exceeded":
             print("Logged out! Logging in...")
             self.login('rahulthepcl@gmail.com', 'Adsense007##')
             self.scrape(target, last_date, last_domain)
 
-        self.implicitly_wait(10)
         total_number = self.find_element(
             By.ID, 'result_info').find_element(By.TAG_NAME, "var").text
         total_number = int(re.sub(r"\D", "", total_number))
         print(total_number)
         updated_link = self.find_elements(
-                By.XPATH, '//tbody/tr/td[1]//a[@href]')[0].get_attribute("href")
+            By.XPATH, '//tbody/tr/td[1]//a[@href]')[0].get_attribute("href")
         updated_date = self.find_elements(
             By.XPATH, '//tbody/tr/td[10]')[0].text
 
