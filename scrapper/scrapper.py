@@ -69,13 +69,14 @@ class Scraper(webdriver.Chrome):
         self.get(f'https://app.ahrefs.com/site-explorer/others/v2/linked-domains/subdomains/live/all/all/1'
                  f'/first_seen_desc?target={target}')
         time.sleep(5)
-        print(self.page_source)
+        print(self.current_url)
         # Check for if it gets logged out
         if self.current_url == "https://app.ahrefs.com/sessions-exceeded":
             print("Logged out! Logging in...")
             self.login('rahulthepcl@gmail.com', 'Adsense007##')
             self.scrape(target, last_date, last_domain)
 
+        print(self.current_url)
         total_number = self.find_element(
             By.ID, 'result_info').find_element(By.TAG_NAME, "var").text
         total_number = int(re.sub(r"\D", "", total_number))
