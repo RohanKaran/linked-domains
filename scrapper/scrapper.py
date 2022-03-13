@@ -50,7 +50,7 @@ class Scraper(webdriver.Chrome):
         self.teardown = teardown
         super(Scraper, self).__init__()
         self.set_window_size(50, 50)
-        self.implicitly_wait(2500)
+        self.implicitly_wait(25)
 
     def login(self, email, password):
         self.get("https://app.ahrefs.com/user/login")
@@ -81,7 +81,7 @@ class Scraper(webdriver.Chrome):
 
         print(self.current_url)
         print(str(self.page_source))
-        total_number = WebDriverWait(self, 30).until(self.find_element(
+        total_number = WebDriverWait(self, 300).until(self.find_element(
             By.ID, 'result_info').find_element(By.TAG_NAME, "var").text)
         total_number = int(re.sub(r"\D", "", total_number))
         print(total_number)
