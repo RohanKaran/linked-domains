@@ -81,10 +81,14 @@ class Scraper(webdriver.Chrome):
 
         print(self.current_url)
         print(str(self.page_source))
+
         total_number = WebDriverWait(self, 300).until(self.find_element(
-            By.ID, 'result_info').find_element(By.TAG_NAME, "var").text)
+            By.ID, 'result_info'))
+        print(total_number)
+        total_number = total_number.find_element(By.TAG_NAME, "var").text
         total_number = int(re.sub(r"\D", "", total_number))
         print(total_number)
+
         updated_link = self.find_elements(
             By.XPATH, '//tbody/tr/td[1]//a[@href]')[0].get_attribute("href")
         updated_date = self.find_elements(
