@@ -1,5 +1,6 @@
 import time
 import os
+from webdriver_manager.chrome import ChromeDriverManager
 from gsp.gsp import write
 import datetime
 import re
@@ -7,8 +8,6 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
-os.environ["CHROMEDRIVER_PATH"] = "chromedriver.exe"
-
 month_map = {
     'jan': 1,
     'feb': 2,
@@ -59,7 +58,7 @@ def formatDate(date):
 
 
 class Scraper(webdriver.Chrome):
-    def __init__(self, driver_path=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),
+    def __init__(self, driver_path=webdriver.Chrome(ChromeDriverManager().install(),
                                                     options=chrome_options), teardown=False):
         self.driver_path = driver_path
         self.teardown = teardown
