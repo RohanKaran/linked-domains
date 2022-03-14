@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
+os.environ["CHROMEDRIVER_PATH"] = "chromedriver.exe"
 
 month_map = {
     'jan': 1,
@@ -41,7 +42,7 @@ args = [
     "--metrics-recording-only",
     "--mute-audio",
     "--headless",
-    "--no-sandbox"
+    "--no-sandbox",
   ]
 for i in args:
     chrome_options.add_argument(i)
@@ -63,12 +64,15 @@ class Scraper(webdriver.Chrome):
         self.driver_path = driver_path
         self.teardown = teardown
         super(Scraper, self).__init__()
-        self.set_window_size(20, 20)
+        self.maximize_window()
         self.implicitly_wait(25)
 
     def login(self, email, password):
-        self.get("https://app.ahrefs.com/user/login")
+        self.get("https://app.ahrefs.com/dashboard")
         self.implicitly_wait(25)
+        print(self.current_url)
+        if re.match('https://app.ahrefs.com/dashboard', self.current_url):
+            return
         self.find_element(
             By.XPATH, "//input[@name='email']").send_keys(email)
         self.find_element(
@@ -88,14 +92,14 @@ class Scraper(webdriver.Chrome):
         time.sleep(5)
         self.refresh()
         # Check for if it gets logged out
-        if self.current_url == "https://app.ahrefs.com/sessions-exceeded":
-            print("Logged out! Logging in...")
-            self.login('rahulthepcl@gmail.com', 'Adsense007##')
-            self.scrape(target, last_date, last_domain)
+        # if self.current_url == "https://app.ahrefs.com/sessions-exceeded":
+        #     print("Logged out! Logging in...")
+        #     self.login('rahulthepcl@gmail.com', 'Adsense007##')
+        #     self.scrape(target, last_date, last_domain)
 
         print("refreshed", self.current_url)
 
-        WebDriverWait(self, 3000).until(ec.presence_of_element_located((By.ID, 'result_info')))
+        WebDriverWait(self, 30).until(ec.presence_of_element_located((By.ID, 'result_info')))
         total_number = self.find_element(
             By.ID, 'result_info')
         print(total_number.text)
@@ -115,10 +119,10 @@ class Scraper(webdriver.Chrome):
             self.implicitly_wait(10)
 
             # Check for if it gets logged out
-            if self.current_url == "https://app.ahrefs.com/sessions-exceeded":
-                print("Logged out! Logging in...")
-                self.login('rahulthepcl@gmail.com', 'Adsense007##')
-                self.scrape(target, last_date, last_domain)
+            # if self.current_url == "https://app.ahrefs.com/sessions-exceeded":
+            #     print("Logged out! Logging in...")
+            #     self.login('rahulthepcl@gmail.com', 'Adsense007##')
+            #     self.scrape(target, last_date, last_domain)
 
             link = self.find_elements(
                 By.XPATH, '//tbody/tr/td[1]//a[@href]')
